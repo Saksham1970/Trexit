@@ -13,19 +13,20 @@ def tree_command() -> None:
     print(printer.print_tree(args.path))
 
 def content_command() -> None:
-    """CLI command for saving directory contents."""
-    parser = argparse.ArgumentParser(description="Save directory contents to file")
+    """CLI command for processing directory contents."""
+    parser = argparse.ArgumentParser(description="Process directory contents")
     parser.add_argument("path", nargs="?", default=".", help="Directory path")
     parser.add_argument("--ignore", nargs="+", help="Directories to ignore")
-    parser.add_argument("-o", "--output", required=True, help="Output file")
+    parser.add_argument("-o", "--output", nargs=1, help="Output file")
     args = parser.parse_args()
     
-    writer = ContentWriter(ignore_list=args.ignore)
+    # Determine whether to collect content based on output file
+    collect_content = args.output is not None
+    writer = ContentWriter(ignore_list=args.ignore, collect_content=collect_content)
     content = writer.process_directory(args.path)
+    print(writer.stats)
     
-    with open(args.output, "w", encoding="utf-8") as f:
-        f.write(content)
-    
-    print(f"Total files: {writer.stats.total_files}")
-    print(f"Total lines of code: {writer.stats.total_lines}")
-    print(f"Total characters of code: {writer.stats.total_chars}")
+    if collect_content:
+        with open(args.output, "w", encoding="utf-8") as f:
+            f.write(content)
+        print(f"\nContent written to: {args.output}")
