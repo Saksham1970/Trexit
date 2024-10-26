@@ -28,3 +28,6 @@ Issues = "https://github.com/Saksham1970/trexit/issues"
 [project.scripts]
 trexit = "trexit.cli:tree_command"
 drexit = "trexit.cli:content_command"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/trexit"]
