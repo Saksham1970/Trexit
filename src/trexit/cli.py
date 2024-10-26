@@ -27,6 +27,6 @@ def content_command() -> None:
     print(writer.stats)
     
     if collect_content:
-        with open(args.output, "w", encoding="utf-8") as f:
+        with open(args.output[0], "w", encoding="utf-8") as f:
             f.write(content)
-        print(f"\nContent written to: {args.output}")
+        print(f"\nContent written to: {args.output[0]}")

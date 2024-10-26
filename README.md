@@ -16,5 +16,5 @@ trexit [path] [--ignore dir1 dir2 ...]
 
 Save directory contents:
 ```bash
-drexit [path] -o output.txt [--ignore dir1 dir2 ...]
+drexit [path] [--ignore dir1 dir2 ...] [-o output.txt]
 ```
